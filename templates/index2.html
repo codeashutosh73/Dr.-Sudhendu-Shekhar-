@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meditics — Dr. Sudhendu Shekhar | Premium Medical Care</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #071824;
+        --card: #0c2236cc; /* glass */
+        --border: rgba(255, 255, 255, 0.14);
+        --text: #e9f2ff;
+        --muted: #b7c6d6;
+        --primary: #3b82f6;
+        --primary-2: #0ea5e9;
+        --accent: #22d3ee;
+        --mint: #cfe7b8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      h5,
+      h6,
+      label {
+        color: #fff;
+      }
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+          "Helvetica Neue", Arial;
+        color: var(--text);
+        background: radial-gradient(
+            60rem 40rem at 10% -10%,
+            #0b2a45 0%,
+            transparent 60%
+          ),
+          radial-gradient(60rem 40rem at 120% 110%, #0a375b 0%, transparent 55%),
+          linear-gradient(180deg, #06131e, var(--bg) 50%, #06131e 100%);
+        overflow-x: hidden;
+      }
+
+      /* floating gradient blobs */
+      .bg-blob,
+      .bg-blob-2 {
+        position: fixed;
+        z-index: -1;
+        filter: blur(60px);
+        opacity: 0.35;
+        pointer-events: none;
+        width: 40vmax;
+        height: 40vmax;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          #2ea8ff,
+          #2ce4ff 35%,
+          transparent 70%
+        );
+        animation: drift 24s ease-in-out infinite;
+      }
+      .bg-blob {
+        top: -10vmax;
+        left: -10vmax;
+      }
+      .bg-blob-2 {
+        right: -14vmax;
+        bottom: -10vmax;
+        background: radial-gradient(
+          circle at 70% 70%,
+          #2ea8ff,
+          #7cf4ff 35%,
+          transparent 70%
+        );
+        animation-delay: -8s;
+      }
+      @keyframes drift {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(4vmax, 2vmax) scale(1.08);
+        }
+      }
+
+      /* Top mini bar & navbar (glass) */
+      .topbar {
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid var(--border);
+        background: #0a2137ee;
+        backdrop-filter: blur(8px);
+      }
+      .navbar {
+        background: #0a2137aa;
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+      }
+      .navbar .nav-link {
+        color: #deebff;
+        font-weight: 600;
+      }
+      .navbar .nav-link:hover {
+        color: #8ecaff;
+      }
+      .btn-cta {
+        background: linear-gradient(90deg, var(--primary), var(--primary-2));
+        color: #fff;
+        border: 0;
+        border-radius: 12px;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+        box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+      }
+
+      /* Hero */
+      .hero {
+        padding: 72px 0;
+      }
+      .hero .glass {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(10px);
+      }
+      .hero h1 {
+        font-weight: 900;
+        line-height: 1.06;
+        font-size: clamp(2.2rem, 1.4rem + 2.4vw, 4rem);
+      }
+      .intro-tag {
+        display: inline-flex;
+        gap: 0.5rem;
+        align-items: center;
+        background: #103052;
+        border: 1px solid var(--border);
+        padding: 0.4rem 0.8rem;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 0.9rem;
+      }
+      .lead {
+        color: var(--muted);
+      }
+      .hero .btn {
+        border-radius: 12px;
+        padding: 0.85rem 1.1rem;
+        font-weight: 800;
+        letter-spacing: 0.3px;
+      }
+      .btn-outline {
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #fff;
+        background: transparent;
+      }
+      .btn-outline:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Rotating plus behind doctor (new look) */
+      .plus-wrap {
+        position: absolute;
+        left: -18px;
+        bottom: -18px;
+        width: 86px;
+        height: 86px;
+        opacity: 0.95;
+        filter: drop-shadow(0 10px 24px rgba(14, 165, 233, 0.35));
+      }
+      .plus {
+        width: 100%;
+        height: 100%;
+        transform-origin: 50% 50%;
+        animation: spin 9s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Services */
+      .section {
+        padding: 70px 0;
+      }
+      .section h2 {
+        font-weight: 900;
+      }
+      .card.service {
+        height: 100%;
+        background: #0e2741cc;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        transition: transform 0.25s ease, box-shadow 0.25s ease,
+          border-color 0.25s ease;
+        backdrop-filter: blur(8px);
+      }
+      .card.service:hover {
+        transform: translateY(-6px);
+        border-color: rgba(255, 255, 255, 0.35);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+      }
+      .service .svgi {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 10px;
+      }
+
+      /* About / info list */
+      ul.checks {
+        padding-left: 0;
+        list-style: none;
+      }
+      ul.checks li {
+        margin: 0.45rem 0;
+        color: #d7e6f8;
+      }
+      ul.checks li:before {
+        content: "✓ ";
+        color: #7ad2ff;
+      }
+
+      /* Appointment & Contact forms */
+      .card.soft {
+        background: #0c2236cc;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        backdrop-filter: blur(8px);
+      }
+      .form-control,
+      .form-select {
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: #e8f3ff;
+      }
+      .form-control:focus,
+      .form-select:focus {
+        border-color: #5eb7ff;
+        box-shadow: 0 0 0 0.2rem rgba(94, 183, 255, 0.15);
+      }
+      .btn-send {
+        background: linear-gradient(90deg, var(--primary), var(--accent));
+        border: 0;
+        border-radius: 12px;
+        font-weight: 800;
+      }
+
+      /* Footer */
+      footer {
+        padding: 36px 0 24px;
+        border-top: 1px solid var(--border);
+        background: #0a1e31cc;
+        backdrop-filter: blur(8px);
+      }
+      footer a {
+        color: #e2efff;
+        text-decoration: none;
+      }
+      footer a:hover {
+        color: #fff;
+      }
+
+      /* Scroll reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: all 0.7s ease;
+      }
+      .reveal.in-view {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Small helpers */
+      .badge-soft {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--border);
+      }
+      .small-muted {
+        color: #a8bdd2;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- floating blobs -->
+    <div class="bg-blob"></div>
+    <div class="bg-blob-2"></div>
+
+    <!-- topbar -->
+    <div class="topbar">
+      <div
+        class="container d-flex flex-wrap justify-content-between align-items-center"
+      >
+        <div>
+          <span class="badge badge-soft rounded-pill me-2">Help Line</span>
+          +208-6666-0112
+        </div>
+        <div class="d-none d-md-block">Mon – Fri 8:00 am – 6:00 pm</div>
+        <div>info@example.com</div>
+      </div>
+    </div>
+
+    <!-- nav -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-white" href="#home"
+          >Mahaveer Cancer Care</a
+        >
+        <button
+          class="navbar-toggler text-white"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#nav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="nav" class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto me-3">
+            <li class="nav-item"><a class="nav-link" href="#home">HOME</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">ABOUT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">SERVICES</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#appointment">APPOINTMENT</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">CONTACT</a>
+            </li>
+          </ul>
+          <a href="#appointment" class="btn btn-cta">BOOK APPOINTMENT</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO (new layout: image left, content right) -->
+    <header id="home" class="hero">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-5 order-1 order-lg-0">
+            <div class="glass p-3 position-relative">
+              <!-- doctor image (replace URL if you want) -->
+              <img
+                src="../static/image/ssprofile1.jpg"
+                alt="Doctor"
+                class="img-fluid rounded-3"
+              />
+              <!-- rotating plus (inline SVG) -->
+              <div class="plus-wrap">
+                <svg class="plus" viewBox="0 0 100 100">
+                  <defs>
+                    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+                      <stop offset="0%" stop-color="#3b82f6" />
+                      <stop offset="100%" stop-color="#0ea5e9" />
+                    </linearGradient>
+                  </defs>
+                  <path
+                    d="M44 8 h12 v28 h28 v12 h-28 v28 h-12 v-28 h-28 v-12 h28z"
+                    fill="url(#g)"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-7">
+            <span class="intro-tag reveal">💚 HI I AM</span>
+            <h1 class="mt-3 reveal">
+              Meet Dr. Sudhendu Shekhar — Your Trusted Healthcare Partner
+            </h1>
+            <p class="lead reveal">
+              Dr. Sudhendu is a highly experienced and compassionate
+              <em>Senior Cancer Specialist & Surgical Oncology</em>
+              dedicated.
+            </p>
+            <div class="d-flex flex-wrap gap-2 mt-2 reveal">
+              <a href="#appointment" class="btn btn-cta">BOOK APPOINTMENT</a>
+              <a href="#schedule" class="btn btn-outline">VIEW SCHEDULE</a>
+            </div>
+            <div class="mt-4 small-muted reveal">
+              “Care. Respect. Evidence-based treatment — every patient, every
+              time.”
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="row g-4 align-items-center">
+          <!-- About Text -->
+          <div class="col-lg-6 reveal">
+            <h2>About Dr. Sudhendu</h2>
+            <p class="text-white-50">
+              Dr. Sudhendu is a trusted healthcare professional dedicated to
+              delivering high-quality, patient-centered medical care. With years
+              of experience, he blends modern medical technology with a
+              compassionate approach to ensure every patient feels heard,
+              understood, and cared for.
+            </p>
+            <ul class="checks mt-3">
+              <li>Comprehensive diagnosis & treatment</li>
+              <li>Modern medical equipment & advanced labs</li>
+              <li>Personalized and empathetic consultations</li>
+            </ul>
+          </div>
+
+          <!-- About Card with Animation -->
+          <div class="col-lg-6 reveal">
+            <div class="card soft p-4">
+              <div class="d-flex align-items-start">
+                <div class="me-3">
+                  <!-- Animated SVG: Heartbeat monitor -->
+                  <svg class="svgi" viewBox="0 0 120 60">
+                    <polyline
+                      points="0,30 20,30 28,30 34,18 40,40 46,30 60,30 70,30 76,15 84,45 92,30 120,30"
+                      fill="none"
+                      stroke="#22d3ee"
+                      stroke-width="3"
+                    >
+                      <animate
+                        attributeName="points"
+                        dur="2.2s"
+                        repeatCount="indefinite"
+                        values="0,30 20,30 28,30 34,18 40,40 46,30 60,30 70,30 76,15 84,45 92,30 120,30;
+                            0,30 20,30 28,30 34,40 40,18 46,30 60,30 70,30 76,45 84,15 92,30 120,30;
+                            0,30 20,30 28,30 34,18 40,40 46,30 60,30 70,30 76,15 84,45 92,30 120,30"
+                      />
+                    </polyline>
+                  </svg>
+                </div>
+                <div>
+                  <h5 class="mb-1">Why Choose Us?</h5>
+                  <p class="mb-0 text-white-50">
+                    We focus on trust, transparency, and timely treatment.
+                    Combining compassion with advanced expertise, we work
+                    towards the best health outcomes for every patient.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="mb-4 reveal">
+          <h2>Specialized Cancer Care Services</h2>
+          <p class="text-white-50">
+            Expert surgical oncology care for various types of cancer, delivered
+            with precision & compassion.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <!-- Head & Neck Cancer -->
+          <div class="col-sm-6 col-lg-3 reveal">
+            <div class="card service p-3">
+              <!-- Animated SVG: head outline pulse -->
+              <svg class="svgi" viewBox="0 0 64 64">
+                <path
+                  d="M32 4 a14 14 0 0 1 0 28 a14 14 0 0 1 0 -28 z"
+                  fill="none"
+                  stroke="#7dd3fc"
+                  stroke-width="3"
+                >
+                  <animateTransform
+                    attributeName="transform"
+                    type="scale"
+                    values="1;1.05;1"
+                    dur="1.5s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </svg>
+              <h6 class="fw-bold">Head & Neck Cancers</h6>
+              <p class="mb-0 text-white-50">
+                Mouth, throat, and tongue cancer surgeries & treatments.
+              </p>
+            </div>
+          </div>
+
+          <!-- Gastrointestinal Cancer -->
+          <div class="col-sm-6 col-lg-3 reveal">
+            <div class="card service p-3">
+              <!-- Animated SVG: stomach icon -->
+              <svg class="svgi" viewBox="0 0 64 64">
+                <path
+                  d="M26 20 q10 10 0 24 q-8 12 8 16 q10-4 6-16 q-6-12 6-24"
+                  fill="none"
+                  stroke="#22d3ee"
+                  stroke-width="3"
+                >
+                  <animate
+                    attributeName="stroke-width"
+                    values="3;4;3"
+                    dur="1.2s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </svg>
+              <h6 class="fw-bold">Gastrointestinal Cancers</h6>
+              <p class="mb-0 text-white-50">
+                Stomach, colon, rectum, pancreas, gall bladder & liver cancers.
+              </p>
+            </div>
+          </div>
+
+          <!-- Thoracic & Breast Cancer -->
+          <div class="col-sm-6 col-lg-3 reveal">
+            <div class="card service p-3">
+              <!-- Animated SVG: lungs with breath effect -->
+              <svg class="svgi" viewBox="0 0 64 64">
+                <path
+                  d="M20 28 q-6 10 0 24 M44 28 q6 10 0 24"
+                  fill="none"
+                  stroke="#60efff"
+                  stroke-width="3"
+                />
+                <path d="M32 12 v40" stroke="#60efff" stroke-width="3">
+                  <animateTransform
+                    attributeName="transform"
+                    type="scale"
+                    values="1;1.05;1"
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </svg>
+              <h6 class="fw-bold">Thoracic & Breast Cancers</h6>
+              <p class="mb-0 text-white-50">
+                Lung & breast cancer surgeries with advanced techniques.
+              </p>
+            </div>
+          </div>
+
+          <!-- Gynecological & Skin Cancer -->
+          <div class="col-sm-6 col-lg-3 reveal">
+            <div class="card service p-3">
+              <!-- Animated SVG: ribbon icon -->
+              <svg class="svgi" viewBox="0 0 64 64">
+                <path
+                  d="M32 6 q-10 10 0 24 q10 -14 0 -24"
+                  fill="none"
+                  stroke="#9cf6ff"
+                  stroke-width="3"
+                />
+                <path
+                  d="M20 36 q12 12 24 0"
+                  fill="none"
+                  stroke="#9cf6ff"
+                  stroke-width="3"
+                >
+                  <animate
+                    attributeName="stroke"
+                    values="#9cf6ff;#60efff;#9cf6ff"
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
+                </path>
+              </svg>
+              <h6 class="fw-bold">Gynecological & Skin Cancers</h6>
+              <p class="mb-0 text-white-50">
+                Ovarian, endometrial, cervical, testicular & skin cancer care.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPOINTMENT -->
+    <section id="appointment" class="section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-6 reveal">
+            <h2>Book an Appointment</h2>
+            <p class="text-white-50">
+              Fill the form and our staff will confirm your slot.
+            </p>
+            <form
+              class="card soft p-4"
+              onsubmit="event.preventDefault(); alert('Appointment request sent!'); this.reset();"
+            >
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label class="form-label">Full Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Your name"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Phone</label>
+                  <input
+                    type="tel"
+                    class="form-control"
+                    placeholder="+91 98765 43210"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="you@example.com"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Department</label>
+                  <select class="form-select">
+                    <option>General</option>
+                    <option>Cardiology</option>
+                    <option>Pediatrics</option>
+                    <option>Dermatology</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Preferred Date</label>
+                  <input type="date" class="form-control" required />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label">Preferred Time</label>
+                  <input type="time" class="form-control" />
+                </div>
+                <div class="col-12">
+                  <label class="form-label">Message</label>
+                  <textarea
+                    class="form-control"
+                    rows="3"
+                    placeholder="Describe symptoms or queries"
+                  ></textarea>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-send px-4 py-2">Send Request</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-lg-6 reveal">
+            <div class="card soft p-4 h-100">
+              <div class="d-flex align-items-center mb-2">
+                <!-- Animated SVG: calendar pulse -->
+                <svg class="svgi me-2" viewBox="0 0 64 64">
+                  <rect
+                    x="8"
+                    y="12"
+                    width="48"
+                    height="44"
+                    rx="6"
+                    ry="6"
+                    fill="none"
+                    stroke="#7dd3fc"
+                    stroke-width="3"
+                  />
+                  <line
+                    x1="8"
+                    y1="22"
+                    x2="56"
+                    y2="22"
+                    stroke="#7dd3fc"
+                    stroke-width="3"
+                  />
+                  <circle cx="22" cy="36" r="3" fill="#7dd3fc">
+                    <animate
+                      attributeName="r"
+                      values="3;4;3"
+                      dur="1.4s"
+                      repeatCount="indefinite"
+                    />
+                  </circle>
+                  <circle cx="32" cy="36" r="3" fill="#7dd3fc">
+                    <animate
+                      attributeName="r"
+                      values="3;4;3"
+                      dur="1.4s"
+                      repeatCount="indefinite"
+                      begin="-.3s"
+                    />
+                  </circle>
+                  <circle cx="42" cy="36" r="3" fill="#7dd3fc">
+                    <animate
+                      attributeName="r"
+                      values="3;4;3"
+                      dur="1.4s"
+                      repeatCount="indefinite"
+                      begin="-.6s"
+                    />
+                  </circle>
+                </svg>
+                <h5 class="mb-0">Schedule & Availability</h5>
+              </div>
+              <p class="text-white-50">Typical weekly timings</p>
+              <ul class="list-group list-group-flush">
+                <li
+                  class="list-group-item bg-transparent text-light d-flex justify-content-between"
+                >
+                  <span>Mon – Fri</span><span>08:00 AM – 06:00 PM</span>
+                </li>
+                <li
+                  class="list-group-item bg-transparent text-light d-flex justify-content-between"
+                >
+                  <span>Saturday</span><span>09:00 AM – 02:00 PM</span>
+                </li>
+                <li
+                  class="list-group-item bg-transparent text-light d-flex justify-content-between"
+                >
+                  <span>Sunday</span><span>Emergency Only</span>
+                </li>
+              </ul>
+              <small class="mt-3 text-white-50 d-block"
+                >* Emergency cases accepted 24/7.</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-5 reveal">
+            <h2>Get in Touch</h2>
+            <p class="text-white-50">
+              Call, email, or visit our clinic. We’re happy to help.
+            </p>
+            <p class="mb-2">
+              <strong>Address:</strong> Bhu Road, Naria, Varanasi - 221005 (Near
+              Kadambani Sweet, Gandhi Nagar)
+            </p>
+            <p class="mb-2"><strong>Phone:</strong>08460514910</p>
+            <p class="mb-0"><strong>Email:</strong> info@example.com</p>
+          </div>
+          <div class="col-lg-7 reveal">
+            <div class="card soft p-2">
+              <div class="ratio ratio-16x9 rounded" style="overflow: hidden">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3607.7260095598613!2d82.99167192567678!3d25.27980077765784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1s%20Bhu%20Road%2C%20Naria%2C%20Varanasi%20-%20221005%20(Near%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20Kadambani%20Sweet%2C%20Gandhi%20Nagar)!5e0!3m2!1sen!2sin!4v1755154354484!5m2!1sen!2sin"
+                  width="600"
+                  height="450"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-center">
+      <div class="container">
+        <div class="row gy-3 align-items-center">
+          <div class="col-lg-6">
+            <div class="small-muted">
+              © <span id="y"></span> Meditics — Caring with excellence and
+              empathy.
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <a href="#home" class="me-3">Home</a>
+            <a href="#services" class="me-3">Services</a>
+            <a href="#appointment" class="me-3">Appointments</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // footer year
+      document.getElementById("y").textContent = new Date().getFullYear();
+
+      // simple scroll reveal
+      const els = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in-view");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      els.forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>

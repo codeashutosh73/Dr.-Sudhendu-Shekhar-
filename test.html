@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doctor's Blog</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f5f7fa;
+      }
+
+      .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 20px;
+        overflow: hidden;
+        backdrop-filter: blur(15px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .glass-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+      }
+
+      .card-img {
+        overflow: hidden;
+      }
+
+      .card-img img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .glass-card:hover .card-img img {
+        transform: scale(1.08);
+      }
+
+      .card-body-content {
+        padding: 20px;
+      }
+
+      .card-body-content h5 {
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .card-body-content .meta {
+        font-size: 0.9rem;
+        color: #6c757d;
+        margin-bottom: 10px;
+      }
+
+      .card-body-content .meta span {
+        margin-right: 15px;
+      }
+
+      .card-body-content p {
+        font-size: 0.95rem;
+        color: #444;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #0d6efd, #0049b7);
+        border: none;
+        border-radius: 30px;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #0049b7, #0d6efd);
+        transform: translateX(5px);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <span class="badge bg-light text-primary px-3 py-2 shadow-sm">
+            <i class="fa-solid fa-heart me-2"></i>Doctor's Blog
+          </span>
+          <h2 class="fw-bold mt-3">Your Health, My Words</h2>
+          <p class="text-muted">
+            Latest tips, advice, and expert opinions for a healthier life.
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <!-- Card 1 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="glass-card">
+              <div class="card-img">
+                <img
+                  src="https://source.unsplash.com/600x400/?family,health"
+                  alt=""
+                />
+              </div>
+              <div class="card-body-content">
+                <h5>The Medical Minute: Quick Tips</h5>
+                <div class="meta">
+                  <span
+                    ><i class="fa-regular fa-calendar"></i> 11 March 2025</span
+                  >
+                  <span><i class="fa-regular fa-folder"></i> Event</span>
+                </div>
+                <p>
+                  Learn practical, everyday tips for maintaining a healthy
+                  lifestyle in simple steps.
+                </p>
+                <a href="#" class="btn btn-primary mt-3"
+                  >Read More <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="glass-card">
+              <div class="card-img">
+                <img
+                  src="https://source.unsplash.com/600x400/?doctor,food"
+                  alt=""
+                />
+              </div>
+              <div class="card-body-content">
+                <h5>Healthy Habits for Busy Professionals</h5>
+                <div class="meta">
+                  <span
+                    ><i class="fa-regular fa-calendar"></i> 11 March 2025</span
+                  >
+                  <span><i class="fa-regular fa-folder"></i> Wellness</span>
+                </div>
+                <p>
+                  Discover healthy routines you can maintain even with a hectic
+                  work schedule.
+                </p>
+                <a href="#" class="btn btn-primary mt-3"
+                  >Read More <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-lg-4 col-md-6">
+            <div class="glass-card">
+              <div class="card-img">
+                <img
+                  src="https://source.unsplash.com/600x400/?doctor,child"
+                  alt=""
+                />
+              </div>
+              <div class="card-body-content">
+                <h5>Ask the Doctor: Real Answers</h5>
+                <div class="meta">
+                  <span
+                    ><i class="fa-regular fa-calendar"></i> 11 March 2025</span
+                  >
+                  <span><i class="fa-regular fa-folder"></i> Health</span>
+                </div>
+                <p>
+                  Answers to the most common questions patients have, straight
+                  from a trusted doctor.
+                </p>
+                <a href="#" class="btn btn-primary mt-3"
+                  >Read More <i class="fa-solid fa-arrow-right"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
